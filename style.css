@@ -1,0 +1,129 @@
+/* --- Global Styles & Brand Colors --- */
+:root {
+    --brand-green: #1ae25c;
+    --brand-dark-gray: #4d4d4c;
+    --spotlight-x: 50%; /* JS will control this */
+    --card-width: 300px;
+    --gap: 40px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Mukta', sans-serif;
+    color: var(--brand-dark-gray);
+    overflow: hidden;
+    background-color: #1a1a1d;
+    background-image: radial-gradient(
+        circle at var(--spotlight-x) 50%, 
+        rgba(26, 226, 92, 0.25), 
+        transparent 40vw
+    );
+    transition: background-position 0.1s ease-out;
+}
+
+/* --- MODIFIED HEADER SECTION --- */
+header {
+    text-align: center;
+    padding: 15px 20px; /* MODIFIED: Reduced vertical padding */
+    color: #fff;
+    /* NEW: Added a subtle border for clean separation */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+h1 {
+    font-size: 1.6rem; /* MODIFIED: Slightly smaller font */
+    margin-bottom: 2px; /* MODIFIED: Reduced margin */
+}
+.subtitle {
+    color: #ccc;
+    font-size: 0.9rem; /* MODIFIED: Slightly smaller font */
+}
+/* --- END OF MODIFIED HEADER SECTION --- */
+
+/* --- Horizontal Timeline Container --- */
+.timeline-container {
+    width: 100%;
+    /* MODIFIED: Calculate height based on new header size */
+    height: calc(100vh - 72px); 
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.timeline-container::-webkit-scrollbar { display: none; }
+
+.timeline-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 calc(50vw - var(--card-width)/2);
+    gap: var(--gap);
+    height: 100%;
+}
+
+/* --- The Glassmorphism Card --- */
+.timeline-card {
+    flex: 0 0 var(--card-width);
+    height: fit-content;
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    opacity: 0.7;
+    transform: scale(0.95);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.timeline-card.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 40px rgba(26, 226, 92, 0.5);
+    border: 1px solid rgba(26, 226, 92, 0.8);
+}
+
+.timeline-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.time-stamp {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    padding: 2px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+.card-body {
+    padding: 20px;
+    color: #e0e0e0;
+}
+.conclusion-card.active .card-body {
+    color: var(--brand-green);
+}
+.conclusion-card strong {
+    color: #fff;
+}
+
+
+/* --- Navigation Controls --- */
+.timeline-navigation { position: fixed; bottom: 0; left: 0; width: 100%; padding: 15px; display: flex; justify-content: center; gap: 20px; }
+.timeline-navigation button { background-color: var(--brand-green); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(26, 226, 92, .4); transition: transform .2s ease; }
+.timeline-navigation button:active { transform: scale(0.95); }
+.timeline-navigation button:disabled { background-color: #555; box-shadow: none; cursor: not-allowed; }
+
+/* --- Responsive --- */
+@media screen and (max-width: 768px) {
+    :root { --card-width: 280px; --gap: 30px; }
+    h1 { font-size: 1.4rem; }
+    .subtitle { font-size: 0.85rem; }
+}
